@@ -1,2 +1,2 @@
 #!/bin/bash
-alias _ls_='cd /bin/ls'  
+_ls_  
