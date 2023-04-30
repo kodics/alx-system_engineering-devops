@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # displays Holberton School 10 times.
+# loop condition
 
 COUNTER=0
 while [ $COUNTER -lt 11 ]

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # displays Holberton School 10 times.
+# loop condition
 
 for (( c=1; c<=10; c++ ))
 do
