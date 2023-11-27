@@ -4,4 +4,4 @@
 # name school
 # number of bits to be created 4096
 # Protect key by passphrases
-ssh-keygen -t rsa -b 4096 -P betty -f school
+ssh-keygen -t rsa -b 4096 -P betty -f school -yes
