@@ -3,5 +3,6 @@
 # A bash script that creates an RSA key pair
 # name school
 # number of bits to be created 4096
-# Protect key by passphrass
+# Protect key by passphrases
+
 ssh-keygen -f school -b 4096 -N betty
