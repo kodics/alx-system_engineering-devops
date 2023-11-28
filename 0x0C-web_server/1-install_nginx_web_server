@@ -1,26 +1,17 @@
 #!/usr/bin/env bash
 # Update the package list to get the latest information about available packages
-apt-get update -y
 
-# Install Nginx if it's not already installed
-if ! dpkg -l | grep -q nginx; then
-    apt-get install nginx -y
-fi
+# Update package list and install Nginx
+sudo apt-get update -y
+sudo apt-get install -y nginx
 
-# Allow incoming HTTP traffic through UFW
-ufw allow 'Nginx HTTP'
+# Configure Nginx to listen on port 80
+sudo sed -i 's/listen 80 default_server;/listen 80;/' /etc/nginx/sites-available/default
 
-# Create an index.html file with the "Hello World!" content in the default root directory
-echo "Hello World!" > /var/www/html/index.html
+# Create a simple HTML page with the content "Hello World!"
+echo '<!DOCTYPE html><html><head><title>Hello World!</title></head><body><p>Hello World!</p></body></html>' | sudo tee /var/www/html/index.html
 
-# Ensure Nginx is running and start it if it's not running
-if ! service nginx status >/dev/null; then
-    service nginx start
-fi
+# Restart Nginx
+sudo /etc/init.d/nginx restart
 
-# Check if Nginx is running on port 80 (netstat may require installation)
-if ! curl 100.26.222.68 | grep -q 'Hello World!'; then
-    echo "Nginx is not listening on port 80."
-else
-    echo "Nginx is running and configured correctly."
-fi
+echo "Nginx installation and configuration completed."
