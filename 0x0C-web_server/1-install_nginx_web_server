@@ -11,7 +11,7 @@ fi
 ufw allow 'Nginx HTTP'
 
 # Create an index.html file with the "Hello World!" content in the default root directory
-echo "Hello World!" | tee /var/www/html/index.html
+echo "Hello World!" > /var/www/html/index.html
 
 # Ensure Nginx is running and start it if it's not running
 if ! service nginx status >/dev/null; then
@@ -19,7 +19,7 @@ if ! service nginx status >/dev/null; then
 fi
 
 # Check if Nginx is running on port 80 (netstat may require installation)
-if ! sudo netstat -tuln | grep -q ':80\b'; then
+if ! curl 100.26.222.68 | grep -q 'Hello World!'; then
     echo "Nginx is not listening on port 80."
 else
     echo "Nginx is running and configured correctly."
