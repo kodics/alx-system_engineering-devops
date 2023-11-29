@@ -1,2 +1,26 @@
 #!/usr/bin/env bash
+
+
+# Create a Dockerfile for Apache
+echo -e "FROM ubuntu\nRUN apt-get update && apt-get install -y apache2 && apt-get clean && rm -rf /var/lib/apt/lists/*\nCMD ['apache2ctl', '-D', 'FOREGROUND']" > Dockerfile
+
+# Build the Docker image
+docker build -t my-apache-image .
+
+# Run the Docker container with port mapping
+docker run -d -p 8080:80 --name my-apache-container my-apache-image
+
+# Create a simple HTML page with the content "Hello Holberton"
+echo '<!DOCTYPE html><html><head><title>Hello Holberton</title></head><body><p>Hello Holberton</p></body></html>' > index.html
+
+# Copy the HTML page into the Docker container
+docker cp index.html my-apache-container:/var/www/html/
+
+# Display the container's IP address
+container_ip=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' my-apache-container)
+echo "Apache is running in the container. Access the page at http://$container_ip:8080/"
+
+# Clean up
+rm Dockerfile index.html
+
 sudo service apache2 start
