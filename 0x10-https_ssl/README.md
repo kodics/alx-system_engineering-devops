@@ -1,5 +1,5 @@
 # 0x10. HTTPS SSL
-# Author: Jerrica Jackson
+# Author: kodics
 ## Concepts
 For this project, we expect you to look at these concepts:
 
