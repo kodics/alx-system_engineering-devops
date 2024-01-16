@@ -5,7 +5,7 @@ of subscribers for a given subreddit.
 """
 
 import requests
-
+import sys
 
 def number_of_subscribers(subreddit):
     """
@@ -24,25 +24,25 @@ def number_of_subscribers(subreddit):
     # Define the API endpoint URL
     url = f'https://www.reddit.com/r/{subreddit}/about.json'
 
-    # Send an HTTP GET request to the Reddit API
-    response = requests.get(url, headers=headers)
+    try:
+        # Send an HTTP GET request to the Reddit API
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()  # Raise an exception for bad responses (4xx and 5xx)
 
-    # Check if the request was successful (status code 200)
-    if response.status_code == 200:
         # Parse the JSON response and extract the number of subscribers
         data = response.json()
         subscribers = data['data']['subscribers']
         return subscribers
-    else:
-        # Invalid subreddit or other error, return 0
+    except requests.exceptions.RequestException as e:
+        # Handle any request-related exceptions
+        print(f"Error: {e}")
         return 0
 
-
 if __name__ == '__main__':
-    import sys
     if len(sys.argv) < 2:
         print("Please pass an argument for the subreddit to search.")
     else:
         subreddit = sys.argv[1]
         subscribers = number_of_subscribers(subreddit)
         print(subscribers)
+
