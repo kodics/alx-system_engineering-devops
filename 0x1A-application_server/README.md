@@ -13,6 +13,3 @@
 + 2. Serve a page with Nginx
 + 3. Add a route with query parameters
 + 4. Let's do this for your API
-
-## Author
-Jerrica Jackson
